@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,6 +68,19 @@ public class OrderController {
     	if(order!=null)
     	  order.setItems(null);
         return ResponseEntity.ok(order);
+    }
+    
+    @PutMapping("/checkout/{orderid}")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable("orderid") long orderid) {
+    	Optional<Order> result = orderRepo.findById(orderid);
+    	if (result.isPresent()) {
+    		Order order = result.get();
+    		order.setStatus("處理中");
+    		orderRepo.save(order);
+    		return ResponseEntity.ok(order);
+    	} else {
+    		return ResponseEntity.notFound().build();
+    	}
     }
     
     /*

@@ -66,7 +66,7 @@ function updateCart() {
             <small class="text-info">${item.price} 元 × ${item.quantity}</small>
           </span>
           <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">
-            <i class="fa fa-trash"></i>
+            <i class="fa fa-trash"></i> 捨棄
           </button>
         </li>
       `);
